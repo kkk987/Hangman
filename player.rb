@@ -6,11 +6,11 @@
 # - Behabiors: make a guess
 
 class Player
-    attr_reader :guesses
+    attr_reader :guessed_letter
+    attr_accessor :guesses
     def initialize
         @player = "unknown player"
-        @guesses = 5
-        @guessed_word = []
+        @guessed_letter = []
     end
 
     def make_guess

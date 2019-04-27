@@ -9,6 +9,7 @@ require 'yaml'
 #
 
 class Word_List #< Game
+    attr_reader :secret_word
     def initialize
         #load a defualt word array from a yaml file 
         @word_list = YAML.load(File.read("word_list.yml"))
