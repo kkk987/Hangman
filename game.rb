@@ -60,57 +60,81 @@ class Game
         
     end
 
-    #display the secret word
-    def display_game(word, guesses)
-        word.tr('^' + guesses, '_').chars.join(' ')
-        puts "You have #{player.guesses} guesses left"
-        puts "Here is what you guessed #{player.guessed_letter}"
-        puts "Please enter a letter"
-    end
 
-    def guess_check(guess)
-        #an input more 2 characters is invalid
-        return INVALID_GUESS if guess.length > 2
-        case
-            when guess.length == 2
-                (guess == "-q") ? return @gameover = true : return INVALID_QUIT
-            when guess.length == 1
-                return INVALID_GUESS if (guess =~ /[[:alpha:]]/) != 0
-            else
-                return INVALID_GUESS
-        end
-    end
+    
 
     #load a new secret word
-    def game_start
+    def game_start()
         word_list = Word_List.new
         player = Player.new
-        player.guesses = word_list.secret_word.length
+        word_list.gen_secret_word
+        word_list.count_uniq_char
+        puts "Test to see remaint guesses"
+        puts player.guesses
+        puts "Here is the secret word"
+        puts word_list.secret_word
         loop do
-            display_game(word_list.secret_word, guess)
-            guess = player.make_guess
-            error_msg(guess_check(guess)) 
-            gameover? ? break :  
+            display_game(word_list.secret_word, player.guessed_letter.to_s, player.guesses)
+            guess = player.make_guess.downcase
+            puts "player guessed letter"
+            puts player.guessed_letter
+            puts "Here is guess"
+            puts guess
+            error_msg(guess_check(guess, player.guessed_letter)) 
+            if (word_list.secret_word.downcase.include? (guess)) == true
+                puts "Your guess is correct!"
+                word_list.win_flag -= 1
+            else
+                puts "Sorry your guess is wrong :/."
+                player.guesses -= 1
+            end
+            player.add_guessed_letter(guess)
+
+
+            break if gameover?(player.guesses, word_list.win_flag) == GAMEOVER  
         end
         return GAMEOVER
 
 
     end
+    #display the secret word
+    ##### Add hangman drawing here
+    def display_game(word, guessed_letter, guesses)
+        puts word.tr('^' + guessed_letter, '_').chars.join(' ')
+        puts "You have #{guesses} guesses left"
+        puts "Here is what you guessed: #{guessed_letter}"
+        puts "Please enter a letter"
+    end
+
+    def guess_check(guess, guessed_letter)
+        #an input more 2 characters is invalid
+        return INVALID_GUESS if guess.length > 2
+        case
+            when guess.length == 2
+                (guess == "-q") ? (return @gameover = true) : (return INVALID_QUIT)
+            when guess.length == 1
+                return INVALID_GUESS if (guess =~ /[[:alpha:]]/) != 0
+                return INVALID_GUESS if guessed_letter.include?(guess) == true
+
+            else
+                return INVALID_GUESS
+        end
+    end
 
 
 
     #Check if game is finished
-    # 3 situations finish the game: 
+    # 2 situations finish the game: 
     #  - correctly guess the secret word
     #  - guess chances is zero
     #  - -q is entered
-    def gameover?
+    def gameover?(guesses, win_flag)
 
 
-        if player.guesses == 0 
+        if guesses == 0 
             return GAMEOVER
-        else
-            
+        elsif win_flag == 0
+            return GAMEOVER
         end
 
         return GAME_CONTINUE
@@ -134,31 +158,40 @@ class Game
         @gameover = true
         return @gameover
     end
+
+    def continue_prompt
+        puts "Press any keys to continue...."
+        puts "3rd gets"
+        continue = gets.chomp
+    end
+
     #all error messages are put here
     def error_msg(err_type)
         case
             when err_type == INVALID_MENU_CMD
                 puts "Please enter an integer from 1 to 6"
                 #dispaly_menu
+                continue_prompt
             when err_type == INVALID_QUIT
                 puts "Please enetr -q to quit game"
+                continue_prompt
             when err_type == INVALID_GUESS
-                puts "Please enter a single letter"
+                puts "Please enter a new single letter"
+                continue_prompt
             else
 
         end
-        puts "Press any keys to continue...."
-        puts "3rd gets"
-        continue = gets.chomp
+        
     end
     
 end
 game = Game.new
+
 loop do
     puts "\e[H\e[2J"
     game.dispaly_menu
     game.get_cmd
-    if game.cmd_option == true
+    if game.cmd_option == GAMEOVER
         puts "break"
         break
     end
