@@ -26,6 +26,6 @@ class Word_List #< Game
     #win_flag is the minimum number of guesses that
     #the player needs to guess to win the game
     def count_uniq_char
-        @win_flag = secret_word.split(//).uniq.length
+        @win_flag = @secret_word.downcase.split(//).uniq.length
     end
 end

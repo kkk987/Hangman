@@ -18,13 +18,13 @@ class Player
 
     def make_guess
         guess = gets.chomp.to_s
-        return guess
+        return guess.downcase
     end
 
     def add_guessed_letter(guess)
         #if guessed_letter.include? (guess) == false
-            guessed_letter << guess
-            return guessed_letter
+            @guessed_letter << guess
+            return @guessed_letter
              
     end
 end
