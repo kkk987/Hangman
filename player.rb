@@ -5,14 +5,22 @@
 #               words player has guessed
 # - Behabiors: make a guess
 INVALID_GUESS = 3
-
+DEFAULT_GUESSES = 5
+DEFAULT_NAME = "unknown player"
+DEFAULT_LETTERS = " "
 
 class Player
     attr_reader :guessed_letter 
     attr_accessor :guesses
     def initialize
-        @player = "unknown player"
-        @guesses = 5
+        @name = DEFAULT_NAME
+        @guesses = DEFAULT_GUESSES
+        @guessed_letter = DEFAULT_LETTERS
+    end
+
+    def new_game_init
+        @name = DEFAULT_NAME
+        @guesses = DEFAULT_GUESSES
         @guessed_letter = " "
     end
 
@@ -22,7 +30,6 @@ class Player
     end
 
     def add_guessed_letter(guess)
-        #if guessed_letter.include? (guess) == false
             @guessed_letter << guess
             return @guessed_letter
              
