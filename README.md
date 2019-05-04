@@ -43,9 +43,21 @@ https://github.com/kkk987/Hangman.git
     Some of the secret words may be offensive to certain social, political, cultural, racial, gender and international groups. These words will be assessed before adding into world lists.
 # Design and Planning:
 * Evidence of app idea brainstorming sessions:
+    
+    Hangman game is the topic of this terminal app. The reasons to pick hangman are that:
+    - a good opportunity to practise the input validation
+    -  learn how to use class and module
+    -  learn how to write dry codes
+    -  and plenty of advanced features for future developemnt
 
 * User stories:
 
+    - US -1: As a user, I can guess a word
+    - US - 2: As a user, I can see the chances left
+    - US - 3: As a user, I know what letters I guessed
+    - US - 4: As a user, I know which letter I guessed is correct
+    - US - 5: As a user, I can restart the game when I finish one
+  
 * Project plan and timeline:
 
 * Description of overall app design (classes, files, basic flow):
