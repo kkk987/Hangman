@@ -7,7 +7,7 @@ https://github.com/kkk987/Hangman.git
 # App Description:
  * Purpose:
     
-    This is a hangman game app. Player can guess a secrect word from terminal. The more wrong guesses the more pieces of hangman will be drawn.
+    This is a hangman game app. The player can guess a secret word from the terminal. The more wrong guesses the more pieces of hangman will be drawn.
  * Functionality:
     
     This app currently enables to do the followings:
@@ -37,18 +37,18 @@ https://github.com/kkk987/Hangman.git
 
 * Potential legal, moral, ethical, cultural and safety issues:
 
-    Young players may experience uncomfortableness towards the hangman drawings. And some of the secret words may be offensive to certain group of people.
-    As a solution, a disclaim page will be added as a future enhancement. And possible offensive words will be reassessed before adding into word list.
+    Young players may experience uncomfortableness towards the hangman drawings. And some of the secret words may be offensive to a certain group of people.
+    As a solution, a disclaim page will be added as a future enhancement. And possible offensive words will be reassessed before adding into a word list.
 * Possible social, political, cultural, racial, gender and international issues:
     Some of the secret words may be offensive to certain social, political, cultural, racial, gender and international groups. These words will be assessed before adding into world lists.
 # Design and Planning:
 * Evidence of app idea brainstorming sessions:
     
     Hangman game is the topic of this terminal app. The reasons to pick hangman are that:
-    - a good opportunity to practise the input validation
+    - a good opportunity to practice the input validation
     -  learn how to use class and module
     -  learn how to write dry codes
-    -  and plenty of advanced features for future developemnt
+    -  and plenty of advanced features for future development
 
 * User stories:
 
@@ -60,37 +60,42 @@ https://github.com/kkk987/Hangman.git
   
 * Project plan and timeline:
 
-- ![image info](./docs/timeline_1.png)
-- ![image info](./docs/timeline_2.png)
+  - ![timeline_1](https://user-images.githubusercontent.com/8579501/57189376-75bf0d80-6f51-11e9-950b-fd67bcf734e0.PNG "Time line part 1")
+
+
+  - ![timeline_2](https://user-images.githubusercontent.com/8579501/57189393-a010cb00-6f51-11e9-92ba-c7bee47e3849.PNG "Time line part 2")
+
   
 * Description of overall app design (classes, files, basic flow):
 
     hangman: This is the main file where runs all related programs. 
 
-    Class - game: The game class is the framwork of the whole game. This class responses to basic game machanisim such as display menu and corresponding reactions, initialize other classes, check gameover status and quit game.
+    Class - game: The game class is the framework of the whole game. This class responses to basic game mechanisms such as display menu and corresponding reactions, initialize other classes, check game over status and quit the game.
     
-    Class - player: The player class stores all user information and behaviors. At this stage, there are not much attributes and behaviors are stored in this class. But it will provide extra flexibility when consideirng future developments which involves players such as leader board or save/load a game
+    Class - player: The player class stores all user information and behaviors. At this stage, there are not much attributes and behaviors are stored in this class. But it will provide extra flexibility when considering future developments which involve players such as leader board or save/load a game
 
-    Module - Word list: The word list module stores methods that are related with word processing such as generate a secret. This is listed as a separated file for the same reason as player class's which provides more flexibility for future features.
+    Module - Word list: The word list module stores methods that are related to word processing such as generate a secret. This is listed as a separated file for the same reason as player class's which provides more flexibility for future features.
 
-    Module - Hangman lib: This file contains some commonly called methods which are eaiser for maintainence and debugging purposes.
+    Module - Hangman lib: This file contains some commonly called methods which are easier for maintenance and debugging purposes.
 
-    Module -  Hangman art: This file contains the ascii art of hangman. This file is supposed to be part of game class, however it will make a single class file too big. And consideirng some future features like difficulty setting (each difficulty has a different guesses at start), it is separated as an individual file.
+    Module -  Hangman art: This file contains the ASCII art of hangman. This file is supposed to be part of the game class, however, it will make a single class file too big. And considering some future features like difficulty setting (each difficulty has a different guess chance at the start), it is separated as an individual file.
 
-    Class - Hangman test: This file includes all testing for main program. It is separated so that it is more editable and readable for programmer.
+    Class - Hangman test: This file includes all testing for main program. It is separated so that it is more editable and readable for the programmer.
 
     Yaml file - Word list: This is the default word list where provides a list of secret words for players to guess.
 
     Flowchart:
-    - ![image info](./docs/flowchart_1.jpg)
-    - ![image info](./docs/flowchart_2.jpg)
+    - ![flowchart_1](https://user-images.githubusercontent.com/8579501/57189401-c0d92080-6f51-11e9-85aa-21fe796675d2.jpg "FLowchart part 1")
+    - ![flowchart_2](https://user-images.githubusercontent.com/8579501/57189411-d6e6e100-6f51-11e9-84af-3932aa2037fd.jpg "Flowchart part 2")
+
 
 * Design considerations and choices:
     
-    There are a couple of choices when first design hangman game. One of the alternatives is to use a gem called "gosu" which is a gem specialising in games as the game framwork. However, a gem normally contains many other functionalities that are not necessary for the project and may increase the difficulty in debugging. Therefore the final design is to write an individual class that holds the baisc framwork of the game which is easier for debugging purpose and editing. 
+    There are a couple of choices when first design hangman game. One of the alternatives is to use a gem called "gosu" which is a gem specializing in games as the game framework. However, a gem normally contains many other functionalities that are not necessary for the project and may increase the difficulty in debugging. Therefore the final design is to write an individual class that holds the basic framework of the game which is easier for debugging purpose and editing. 
 
 
 * Screenshots of Trello board(s):
-    - ![image info](./docs/trello_board.png)
+    - ![trello_board](https://user-images.githubusercontent.com/8579501/57189417-ebc37480-6f51-11e9-9cb4-0e16d22f977a.PNG "Trello board")
+
 
 
