@@ -9,7 +9,9 @@ require_relative 'word_list.rb'
 require_relative 'player.rb'
 require_relative 'hangman_art.rb'
 require_relative 'hangman_lib.rb'
+require_relative './class/leaderboard.rb'
 NEW_GAME = 1
+LEADERBOARD = 4
 HELP_MENU = 5
 QUIT = 6
 INVALID_MENU_CMD = 7
@@ -22,12 +24,15 @@ GAME_CONTINUE = false
 #
 class Game
   include WordList
-    include HangmanArt
-    include CommonMethods
+  include HangmanArt
+  include CommonMethods
+  include Leaderboard
   def initialize
     @player = Player.new
     #Assume the game starts normal
     @status = GAME_CONTINUE
+    check_file_exist("ranks")
+    @ranks = load_ranks
   end
 
   #get menu command from player
@@ -43,17 +48,21 @@ class Game
   #handle user commands here
   def cmd_option
     clear_screen
-    case
-    when @cmd == NEW_GAME
+    case @cmd
+    when NEW_GAME
       return game_start
-    when @cmd == HELP_MENU
+    when HELP_MENU
       help_menu
-    when @cmd == QUIT
+    when LEADERBOARD
+      leaderboard
+    when QUIT
       return quit_game
     else
       error_msg(INVALID_MENU_CMD)
     end
   end
+
+
 
   #this method checks if player guessed right or wrong
   def guess_right_wrong(guess)
@@ -79,6 +88,8 @@ class Game
     @player.new_game_init
     puts "Here is the secret word"
     puts @secret_word
+    #get start time
+    @start_time = set_timer
     loop do
       clear_screen
       display_game(@player.guessed_letter.to_s)
@@ -159,6 +170,12 @@ class Game
       return GAMEOVER
     elsif @win_flag == 0
       puts "Congraduation!! You won the game!!"
+      @end_time = finish_timer
+      display_time(@start_time, @end_time)
+      name = @player.get_player_name
+      puts "Name #{name}"
+      @ranks << {name: name, time: (@end_time - @start_time).to_i}
+      save_ranks(@ranks)
       return GAMEOVER
     elsif @status == QUIT
       puts "You sure you want to quit game? Please enter -q again"
@@ -184,6 +201,16 @@ class Game
     puts "If that reaches 0, the game is over"
     puts "By entering -q, player can quit game duing a game session"
     return HELP_MENU
+  end
+
+  def leaderboard
+    table = []
+    # puts "Check existance"
+    # puts "Ranks #{@ranks}"
+    @ranks = load_ranks
+    table = load_table(@ranks)
+    display_ranks(table)
+    return LEADERBOARD
   end
 
   #quit the game

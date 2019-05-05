@@ -32,4 +32,13 @@ class Player
     @guessed_letter << guess
     return @guessed_letter
   end
+
+  def get_player_name
+    puts "Please enter your name"
+    @name = gets.chomp.to_s
+    if (@name.nil?) || (@name.empty?)
+      @name = DEFAULT_NAME
+    end
+    return @name
+  end
 end
