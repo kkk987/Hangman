@@ -97,8 +97,9 @@ class Game
     #win_flag is the minimum number of guesses that the player needs to guess to win the game
     @win_flag = @secret_word.split(//).uniq.length
     @player.new_game_init
-    puts "Here is the secret word"
-    puts @secret_word
+    #Testing only
+    # puts "Here is the secret word"
+    # puts @secret_word
     #get start time
     @start_time = set_timer
     loop do
@@ -186,7 +187,6 @@ class Game
       @end_time = finish_timer
       display_time(@start_time, @end_time)
       name = @player.get_player_name
-      puts "Name #{name}"
       @ranks << {name: name, time: (@end_time - @start_time).to_i}
       save_ranks(@ranks)
       return GAMEOVER

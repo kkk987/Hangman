@@ -20,9 +20,7 @@ module Leaderboard
   end
   
   def save_ranks(ranks)
-    # puts "Ranks #{ranks}"
     ranks = ranks.sort_by {|item| item[:time]}
-    # puts "After sort #{ranks}"
     while ranks.length > 10 do
       ranks.pop
     end
@@ -45,7 +43,6 @@ module Leaderboard
       table << [i, item[:name], time]
       i += 1
     end
-    # puts "Table: #{table}"
     return table
   end
 end

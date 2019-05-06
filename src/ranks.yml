@@ -1,6 +1,8 @@
 ---
 - :name: IO
   :time: 7
+- :name: IO123
+  :time: 9
 - :name: abc
   :time: 10
 - :name: Kop
@@ -17,5 +19,3 @@
   :time: 13
 - :name: unknown player
   :time: 13
-- :name: unknown player
-  :time: 14
