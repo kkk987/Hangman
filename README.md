@@ -2,6 +2,7 @@
 Gen tech terminal app
 
 * Github repository link
+
 https://github.com/kkk987/Hangman.git
 
 # App Description:
@@ -11,34 +12,43 @@ https://github.com/kkk987/Hangman.git
  * Functionality:
     
     This app currently enables to do the followings:
-      * Display the hangman game menu
-      * Generate a random secret word 
-      * Player can guess the secret with limited guesses
-      * User input validation
-      * Hangman drawing
-      * Display help menu
-      * Start a new game
-      * Quit game
-* Instruction for use:
   
-    ruby hangman.rb
+    * Generate a random secret word 
+    * Display the hangman game menu
+    * Player can guess the secret with limited guesses
+    * User input validation
+    * Hangman drawing
+    * Display help menu
+    * Start a new game
+    * Quit game
+    * Add a new word in word list (updated)
+    * View leaderboard (updated)
+    * Add new rankings if it is within top 10(updated)
+
+* Instruction for use:
+    
+  gem install bundler
+
+  ruby hangman.rb
 
 * Future enhancements:
     
-    * Disclaim page
-    * Save/load a game
-    * Game settings(such as font, font size, color etcs)
-    * Leader board
-    * Sound while playing hangman
-    * Human VS human mode
+  * ~~Add a new word~~ (completed)
+  * Save/load a game
+  * Game settings(such as font, font size, color etcs)
+  * ~~Leader board~~ (completed)
+  * Sound while playing hangman
+  * Human VS human mode
 
 * Accessibility concerns:
 
+    As for users who are visionimpaired, only black and white are used as font colors for this app. And as a future features, text setting can be more user friendly and provide more accessinilities. 
 
 * Potential legal, moral, ethical, cultural and safety issues:
 
     Young players may experience uncomfortableness towards the hangman drawings. And some of the secret words may be offensive to a certain group of people.
     As a solution, a disclaim page will be added as a future enhancement. And possible offensive words will be reassessed before adding into a word list.
+
 * Possible social, political, cultural, racial, gender and international issues:
     Some of the secret words may be offensive to certain social, political, cultural, racial, gender and international groups. These words will be assessed before adding into world lists.
 # Design and Planning:
@@ -68,21 +78,45 @@ https://github.com/kkk987/Hangman.git
   
 * Description of overall app design (classes, files, basic flow):
 
-    hangman: This is the main file where runs all related programs. 
-
-    Class - game: The game class is the framework of the whole game. This class responses to basic game mechanisms such as display menu and corresponding reactions, initialize other classes, check game over status and quit the game.
+    hangman: 
     
-    Class - player: The player class stores all user information and behaviors. At this stage, there are not much attributes and behaviors are stored in this class. But it will provide extra flexibility when considering future developments which involve players such as leader board or save/load a game
+    This is the main file where runs all related programs. 
 
-    Module - Word list: The word list module stores methods that are related to word processing such as generate a secret. This is listed as a separated file for the same reason as player class's which provides more flexibility for future features.
+    Class - game: 
+    
+    The game class is the framework of the whole game. This class responses to basic game mechanisms such as display menu and corresponding reactions, initialize other classes, check game over status and quit the game.
+    
+    Class - player: 
+    
+    The player class stores all user information and behaviors. At this stage, there are not much attributes and behaviors are stored in this class. But it will provide extra flexibility when considering future developments which involve players such as leader board or save/load a game
 
-    Module - Hangman lib: This file contains some commonly called methods which are easier for maintenance and debugging purposes.
+    Module - Word list: 
+    
+    The word list module stores methods that are related to word processing such as generate a secret and add a new word. This is listed as a separated file for the same reason as player class's which provides more flexibility for future features.
 
-    Module -  Hangman art: This file contains the ASCII art of hangman. This file is supposed to be part of the game class, however, it will make a single class file too big. And considering some future features like difficulty setting (each difficulty has a different guess chance at the start), it is separated as an individual file.
+    Module - Hangman lib: 
+    
+    This file contains some commonly called methods which are easier for maintenance and debugging purposes.
 
-    Class - Hangman test: This file includes all testing for main program. It is separated so that it is more editable and readable for the programmer.
+    Module - Hangman art: 
+    
+    This file contains the ASCII art of hangman. This file is supposed to be part of the game class, however, it will make a single class file too big. And considering some future features like difficulty setting (each difficulty has a different guess chance at the start), it is separated as an individual file.
 
-    Yaml file - Word list: This is the default word list where provides a list of secret words for players to guess.
+    Module - Leaderboard: 
+
+    This file contains the functionalities such as sav/load ranks and display leaderboard. And the 'terminal table' gem is used to support the visulization of leaderboard. 
+
+    Class - Hangman test: 
+    
+    This file includes all testing for main program. It is separated so that it is more editable and readable for the programmer.
+
+    Yaml file - Word list: 
+    
+    This is the default word list where provides a list of secret words for players to guess.
+
+    Yaml file - ranks:
+
+    This is where the game saves all rankings. It is separeated so that the rankings can be independent from the game.
 
     Flowchart:
     - ![flowchart_1](https://user-images.githubusercontent.com/8579501/57189401-c0d92080-6f51-11e9-85aa-21fe796675d2.jpg "FLowchart part 1")
