@@ -9,19 +9,21 @@ require_relative 'word_list.rb'
 require_relative 'player.rb'
 require_relative 'hangman_art.rb'
 require_relative 'hangman_lib.rb'
-require_relative './class/leaderboard.rb'
+require_relative 'leaderboard.rb'
 NEW_GAME = 1
+ADD_NEW_WORD = 3
 LEADERBOARD = 4
 HELP_MENU = 5
 QUIT = 6
 INVALID_MENU_CMD = 7
 INVALID_QUIT = 8
 INVALID_GUESS = 9
-INVALID_ERR_TYPE = 10
+INVALID_NEW_WORD = 10
+INVALID_ERR_TYPE = 13
 GAMEOVER = true
 GAME_CONTINUE = false
 
-#
+
 class Game
   include WordList
   include HangmanArt
@@ -33,6 +35,7 @@ class Game
     @status = GAME_CONTINUE
     check_file_exist("ranks")
     @ranks = load_ranks
+    @word_list = load_word_list
   end
 
   #get menu command from player
@@ -51,6 +54,16 @@ class Game
     case @cmd
     when NEW_GAME
       return game_start
+    when ADD_NEW_WORD
+      loop do
+        clear_screen
+        if error_msg(add_new_word(@word_list)) == GAME_CONTINUE  
+          sleep(1)
+          break
+        else
+          sleep(1)
+        end
+      end 
     when HELP_MENU
       help_menu
     when LEADERBOARD
@@ -61,8 +74,6 @@ class Game
       error_msg(INVALID_MENU_CMD)
     end
   end
-
-
 
   #this method checks if player guessed right or wrong
   def guess_right_wrong(guess)
@@ -81,7 +92,7 @@ class Game
   #load a new secret word
   def game_start
     #generate a secret from module WordList
-    @secret_word = gen_secret_word
+    @secret_word = gen_secret_word(@word_list)
     #the following line counts the number of uniq char in secret word
     #win_flag is the minimum number of guesses that the player needs to guess to win the game
     @win_flag = @secret_word.split(//).uniq.length
@@ -149,6 +160,8 @@ class Game
       end
   end
 
+  # display game when player has no guesses left
+  # or guessed the correct word
   def end_game_display
     clear_screen if (@status == QUIT)
     if (@player.guesses == 0)^(@win_flag == 0)
@@ -190,7 +203,7 @@ class Game
     end
   end
 
-    #explain the game rules and availbe commands
+  # explain the game rules and availbe commands
   def help_menu
     puts "How to play"
     puts "Player needs to guess a secret word"
@@ -203,10 +216,9 @@ class Game
     return HELP_MENU
   end
 
+  # load leaderboard from yaml file
   def leaderboard
     table = []
-    # puts "Check existance"
-    # puts "Ranks #{@ranks}"
     @ranks = load_ranks
     table = load_table(@ranks)
     display_ranks(table)
@@ -230,7 +242,10 @@ class Game
     when err_type == INVALID_GUESS
 			puts "Please enter a new single letter"
 			return INVALID_GUESS
-		when (err_type == GAME_CONTINUE) ^ (err_type == QUIT)
+    when err_type == INVALID_NEW_WORD
+      puts "Please enter a new word"
+      return INVALID_NEW_WORD
+    when (err_type == GAME_CONTINUE) ^ (err_type == QUIT)
 			return GAME_CONTINUE
 		else
 			puts "Invalid error message"

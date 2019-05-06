@@ -1,7 +1,9 @@
-require_relative 'game.rb'
-# require_relative 'player.rb'
-# require_relative 'word_list.rb'
+# Hangman - hangman
+# Created on 01/05/2019
+# - Initialize the game
+# - Runs the whole game
 
+require_relative './class/game.rb'
 
 game = Game.new
 

@@ -1,3 +1,12 @@
+# Hangman - leaderboard module
+# Created on 05/05/2019
+# This file includes methods relaated to leaderboard
+# It supports functionalities like:
+#   - display the leaderboard
+#   - load the existing leaderboard
+#   - create a new leaderborad
+#   - save the ranks
+
 require 'terminal-table'
 require 'yaml'
 
